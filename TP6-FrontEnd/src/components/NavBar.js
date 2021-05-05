@@ -51,6 +51,13 @@ export const NavBar = () => {
                 </a>
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/new-product">
+                <a className="nav-link" href="#!">
+                  Añadir Nuevo Producto{" "}
+                </a>
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>

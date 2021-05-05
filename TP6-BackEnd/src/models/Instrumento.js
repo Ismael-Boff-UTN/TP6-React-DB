@@ -19,27 +19,20 @@ const InstrumentoSchema = Schema({
   },
   precio: {
     type: Number,
-    default : true
+    default: true,
   },
   costoEnvio: {
-    type: Number,
-    default : true,
+    type: String,
+    default: true,
   },
   cantidadVendida: {
     type: Number,
-    default : true,
+    default: true,
   },
   descripcion: {
     type: String,
-    required : [true, "La Descripcion Es Requerida"],
+    required: [true, "La Descripcion Es Requerida"],
   },
-  ingredientes: [
-    {
-      type: Schema.Types.Mixed,
-      ref: "ingrediente",
-      required: true, //Por El Momento
-    },
-  ],
 });
 
 module.exports = model("instrumento", InstrumentoSchema);

@@ -1,12 +1,21 @@
-import React from "react";
-import instrumentosData from "../fakeAPI/instrumentos.json";
-
+import React, { useEffect, useState } from "react";
+//import instrumentosData from "../fakeAPI/instrumentos.json";
+import axios from "axios";
 export const InstrumentDetail = ({ match }) => {
   const idSearch = match.params.id;
+  //console.log(idSearch);
 
-  const data = instrumentosData.instrumentos.filter(
-    (inst) => inst.id === idSearch
-  )[0];
+  const [instrument, setInstrument] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/api/instrumentos/${idSearch}`)
+      .then((res) => {
+        //console.log(res);
+        //console.log(res.data.articulo);
+        setInstrument(res.data.articulo);
+      });
+  }, [idSearch]);
 
   const {
     instrumento,
@@ -17,16 +26,16 @@ export const InstrumentDetail = ({ match }) => {
     descripcion,
     marca,
     modelo,
-  } = data;
-  console.log(imagen);
+  } = instrument;
+  //console.log(imagen);
   return (
     <>
       <div className="container">
-        <div className="row">
+        <div className="row mt-3">
           <div className="col-lg-8">
             <img
               style={{ maxWidth: "400px", maxHeight: "400px" }}
-              src={`../assets/img/${imagen}`}
+              src={imagen}
               alt="instData"
               className="card-img"
             />

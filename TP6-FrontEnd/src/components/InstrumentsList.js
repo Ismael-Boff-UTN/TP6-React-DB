@@ -1,20 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { InstrumentItem } from "./InstrumentItem";
-import instrumentos from "../fakeAPI/instrumentos.json";
+//import instrumentos from "../fakeAPI/instrumentos.json";
 
 export const InstrumentsList = () => {
-  const [instruments] = useState(instrumentos);
+  const [instruments, setInstruments] = useState([]);
+
+  //console.log(instruments);
+  async function fetchData() {
+    const res = await fetch("http://localhost:4000/api/instrumentos");
+    res.json().then((res) => setInstruments(res.instrumentos));
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="container productos mt-4">
       <h1 className="text-center mb-5">Los Instrumentos Que Vendemos!</h1>
       <h5 className="text-center mb-5">
-        Actualmente Tenemos Disponible : {instruments.instrumentos.length}{" "}
-        Instrumentos!
+        Actualmente Tenemos Disponible : {instruments.length} Instrumentos!
       </h5>
       <div className="row">
-        {instruments.instrumentos.map((instrument) => (
-          <InstrumentItem key={instrument.id} instrument={instrument} />
+        {instruments.map((instrument) => (
+          <InstrumentItem key={instrument._id} instrument={instrument} />
         ))}
       </div>
     </div>

@@ -17,7 +17,7 @@ class Server {
     this.routes();
   }
 
-  async conectarDB(){
+  async conectarDB() {
     await dbConnection();
   }
 
@@ -25,12 +25,13 @@ class Server {
     //CORS
     this.app.use(cors());
     //ParseJSON
-    this.app.use(express.json());
+
+    this.app.use(express.json({ limit: "50mb", extended: true })); //Para Que Express Entienda Formato JSON
+    this.app.use(express.urlencoded({ limit: "50mb" }));
   }
   routes() {
     this.app.use("/", require("../routes/default"));
     this.app.use("/api/instrumentos", require("../routes/instrumentos"));
-   
   }
 
   listen() {

@@ -49,7 +49,6 @@ const postInstrumentos = async (req, res = response) => {
     costoEnvio,
     cantidadVendida,
     descripcion,
-    ingredientes: req.body.ingredientes,
   });
 
   await inst.save();
@@ -61,6 +60,9 @@ const postInstrumentos = async (req, res = response) => {
 };
 const putInstrumento = async (req, res = response) => {
   const { id } = req.params;
+  const { ...resto } = req.body;
+
+  const articulo = await Instrumento.findByIdAndUpdate(id, resto);
   res.json({
     status: true,
     msg: "Instrumento Actualizado",
@@ -70,7 +72,7 @@ const putInstrumento = async (req, res = response) => {
 const deleteInstrumento = async (req, res = response) => {
   const { id } = req.params;
 
-  const instrumento = await Instrumento.findByIdAndUpdate(id);
+  const instrumento = await Instrumento.deleteOne({ _id: id });
 
   res.status(200).json({
     status: true,
