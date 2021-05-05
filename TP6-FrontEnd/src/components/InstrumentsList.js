@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { InstrumentItem } from "./InstrumentItem";
-//import instrumentos from "../fakeAPI/instrumentos.json";
 
 export const InstrumentsList = () => {
   const [instruments, setInstruments] = useState([]);
