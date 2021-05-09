@@ -7,16 +7,16 @@ export const EditInstrument = ({ match }) => {
   const idSearch = match.params.id;
   const [instruments, setInstruments] = useState([]);
 
-  //console.log(instruments);
-  async function fetchData() {
-    const res = await fetch(
-      `http://localhost:4000/api/instrumentos/${idSearch}`
-    );
-    res.json().then((res) => setInstruments(res.articulo));
-  }
   useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        `http://localhost:4000/api/instrumentos/${idSearch}`
+      );
+      res.json().then((res) => setInstruments(res.articulo));
+    };
+
     fetchData();
-  }, []);
+  }, [idSearch]);
 
   //Funcion Para El Guardar
   const onSubmit = (e) => {
