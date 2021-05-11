@@ -5,14 +5,9 @@ import Swal from "sweetalert2";
 
 export const InstrumentItem = ({ instrument }) => {
   const history = useHistory();
-  const {
-    _id,
-    instrumento,
-    imagen,
-    precio,
-    costoEnvio,
-    cantidadVendida,
-  } = instrument;
+  const { _id, instrumento, precio, costoEnvio, cantidadVendida } =
+    instrument;
+
   const redirectToDetails = (_id) => {
     history.push(`instrument/${_id}`);
   };
@@ -48,7 +43,11 @@ export const InstrumentItem = ({ instrument }) => {
       <div className="card mb-3" style={{ maxWidth: "540px" }}>
         <div className="row no-gutters">
           <div className="col-md-4">
-            <img src={imagen} className="card-img" alt="item" />
+            <img
+              src={`http://localhost:4000/api/uploads/instrumentos/${_id}`}
+              className="card-img"
+              alt="item"
+            />
           </div>
           <div className="col-md-8">
             <div className="card-body">

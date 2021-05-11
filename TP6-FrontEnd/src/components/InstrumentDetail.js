@@ -19,7 +19,6 @@ export const InstrumentDetail = ({ match }) => {
 
   const {
     instrumento,
-    imagen,
     precio,
     costoEnvio,
     cantidadVendida,
@@ -35,7 +34,7 @@ export const InstrumentDetail = ({ match }) => {
           <div className="col-lg-8">
             <img
               style={{ maxWidth: "400px", maxHeight: "400px" }}
-              src={imagen}
+              src={`http://localhost:4000/api/uploads/instrumentos/${idSearch}`}
               alt="instData"
               className="card-img"
             />
