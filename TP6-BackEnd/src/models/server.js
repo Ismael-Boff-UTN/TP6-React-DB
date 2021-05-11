@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const fileUpload = require("express-fileupload");
 const { dbConnection } = require("../database/configdb");
 
 class Server {
@@ -28,10 +29,20 @@ class Server {
 
     this.app.use(express.json({ limit: "50mb", extended: true })); //Para Que Express Entienda Formato JSON
     this.app.use(express.urlencoded({ limit: "50mb" }));
+
+    // Note that this option available for versions 1.0.0 and newer.
+    this.app.use(
+      fileUpload({
+        useTempFiles: true,
+        tempFileDir: "/tmp/",
+        createParentPath : true
+      })
+    );
   }
   routes() {
     this.app.use("/", require("../routes/default"));
     this.app.use("/api/instrumentos", require("../routes/instrumentos"));
+    this.app.use("/api/uploads", require("../routes/uploads"));
   }
 
   listen() {
