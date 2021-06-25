@@ -51,7 +51,7 @@ export const AddNewInstrument = () => {
 
     //console.log(producto);
     history.push("/");
-    window.location.reload();
+    //window.location.reload();
   };
   //Obtenemos Los Datos De Los Inputs Para Agregarlos Al State
   const onChange = (e) => {

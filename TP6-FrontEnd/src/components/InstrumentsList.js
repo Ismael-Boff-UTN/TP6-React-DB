@@ -8,6 +8,7 @@ export const InstrumentsList = () => {
   async function fetchData() {
     const res = await fetch("http://localhost:4000/api/instrumentos");
     res.json().then((res) => setInstruments(res.instrumentos));
+    
   }
   useEffect(() => {
     fetchData();

@@ -1,5 +1,6 @@
 const { response } = require("express");
 const Instrumento = require("../models/Instrumento");
+const { subirImagenCloudinary } = require("../helpers/subir-imagen");
 
 const getIntrumentos = async (req, res = response) => {
   //Si No Se Pasa Un Limite (null) Retorna TODOS Los Articulos
@@ -40,11 +41,13 @@ const postInstrumentos = async (req, res = response) => {
     descripcion,
   } = req.body;
 
+  const imgLink = await subirImagenCloudinary(imagen, "Instrumentos_Pictures");
+
   const inst = new Instrumento({
     instrumento,
     marca,
     modelo,
-    imagen,
+    imagen: imgLink,
     precio,
     costoEnvio,
     cantidadVendida,
@@ -60,9 +63,31 @@ const postInstrumentos = async (req, res = response) => {
 };
 const putInstrumento = async (req, res = response) => {
   const { id } = req.params;
-  const { ...resto } = req.body;
+  const {
+    instrumento,
+    marca,
+    modelo,
+    imagen,
+    precio,
+    costoEnvio,
+    cantidadVendida,
+    descripcion,
+  } = req.body;
 
-  const articulo = await Instrumento.findByIdAndUpdate(id, resto);
+  const imgLink = await subirImagenCloudinary(imagen, "Instrumentos_Pictures");
+
+  const data = {
+    instrumento,
+    marca,
+    modelo,
+    imagen: imgLink,
+    precio,
+    costoEnvio,
+    cantidadVendida,
+    descripcion,
+  };
+
+  const articulo = await Instrumento.findByIdAndUpdate(id, data);
   res.json({
     status: true,
     msg: "Instrumento Actualizado",
